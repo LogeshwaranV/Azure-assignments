@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+   <head>
+     <style>
+      button{
+         border: none;
+         background: none;
+      }
+      #outlinebox{
+         
+         position: absolute;
+         width: 25%;
+         height: fit-content;
+         box-shadow: rgba(255, 255,255, 0.2) 0px 0px 0px 1px inset, rgba(0,0,0,0.9) 0px 0px 0px 1px;
+         border: 5px black;
+         background-color: lightgoldenrodyellow;
+         padding-top: 10px;
+         padding-left: 25px;
+         padding-bottom: 25px;
+         padding-right: 25px;
+         box-sizing: content-box;
+      }
+      .line{
+         height: 1px;
+         background: black;
+      }
+     </style>
+      <script>
+         function hide(id){
+            var x = document.getElementById("innerlist"+id);
+            if(x.style.display === "none"){
+               x.style.display="block";
+            }
+            else{
+               x.style.display="none";
+            }
+         }
+
+      </script>
+
+   </head>
+   <body>
+      <div id="outlinebox">
+      <h3>Folders List</h3>
+      <div class="line"></div>
+      <ul >
+         {% for fol in folder %}
+          <li>  
+          <button  onclick="hide({{loop.index}})">{{fol}}</button>
+         </li>
+          <div id="innerlist{{loop.index}}" style="display:none">
+          <ul id="inlist">
+            {%  for fil in file[loop.index - 1] %}
+                 <li> {{ fil }} </li>
+            {% endfor %}
+          </ul>
+         </div>
+         {% endfor %}
+      </ul>
+      </div>
+   </body>
+</html>
